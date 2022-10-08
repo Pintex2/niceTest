@@ -1,0 +1,28 @@
+.square{
+    width: 20px;
+    height: 20px;
+    margin: 2px 2px;
+}
+
+.inactive{
+    background-color: grey;
+}
+.miss-shot{
+    background-color: red;
+}
+.successful-shot{
+    background-color: greenyellow;
+}
+
+.ship {
+    background-color: blueviolet;
+}
+.flex{
+    display: flex;
+    flex-direction: row;
+}
+.title{
+    text-align: center;
+    font-size: 20px;
+    
+}
