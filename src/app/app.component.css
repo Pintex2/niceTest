@@ -7,6 +7,11 @@
 .inactive{
     background-color: grey;
 }
+
+.inactive-shot{
+    background-color: lightgray;
+}
+
 .miss-shot{
     background-color: red;
 }
@@ -17,6 +22,10 @@
 .ship {
     background-color: blueviolet;
 }
+
+.hundido{
+    background-color: blueviolet;
+}
 .flex{
     display: flex;
     flex-direction: row;
@@ -25,4 +34,8 @@
     text-align: center;
     font-size: 20px;
     
+}
+
+.width{
+    width: 500px
 }

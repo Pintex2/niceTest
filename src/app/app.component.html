@@ -1,18 +1,40 @@
-<div>
-  <div class="title">Battleship</div>
-  <button (click)="startGame()">Start Game</button>
-  <div class="flex" *ngFor="let grid of this.grid1.getList(); let i=index">
+<div *ngIf="this.playerTurn==1">
+  <div class="title">Jugador 1</div>
+  <div class="flex" *ngFor="let grid of this.grid2.getList(); let i=index">
     <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="item.state=='inactive'" class=" square inactive" (click)="selectInactive(j,i)"></div>
+      <div *ngIf="item.state=='inactive'" class=" square inactive" (click)="selectInactive(i,j)"></div>
       <div *ngIf="item.state=='miss'" class="square miss-shot" ></div>
       <div *ngIf="item.state=='successfull'" class="square successful-shot" ></div>
+      <div *ngIf="item.state=='hundido'" class="square hundido" ></div>
     </div>
   </div>
   <label>***********</label>
   <div class="flex" *ngFor="let grid of this.grid1.getList(); let i=index">
     <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="!item.hasAship" class=" square inactive"></div>
-      <div *ngIf="item.hasAship" class="square ship"></div>
+      <div *ngIf="item.state=='inactive' && !item.hasAship" class=" square inactive"></div>
+      <div *ngIf="item.state=='inactive' && item.hasAship" class=" square successful-shot"></div>
+      <div *ngIf="item.state=='miss' " class="square inactive-shot" ></div>
+      <div *ngIf="item.state=='successfull'" class="square hundido" ></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="this.playerTurn==2">
+  <div class="title">Jugador 2</div>
+  <div class="flex" *ngFor="let grid of this.grid1.getList(); let i=index">
+    <div *ngFor="let item of grid;let j=index" >
+      <div *ngIf="item.state=='inactive'" class=" square inactive" (click)="selectInactive(i,j)"></div>
+      <div *ngIf="item.state=='miss'" class="square miss-shot" ></div>
+      <div *ngIf="item.state=='successfull'" class="square successful-shot" ></div>
+      <div *ngIf="item.state=='hundido'" class="square hundido" ></div>
+    </div>
+  </div>
+  <label>***********</label>
+  <div class="flex" *ngFor="let grid of this.grid2.getList(); let i=index">
+    <div *ngFor="let item of grid;let j=index" >
+      <div *ngIf="item.state=='inactive' && !item.hasAship" class=" square inactive"></div>
+      <div *ngIf="item.state=='inactive' && item.hasAship" class=" square successful-shot"></div>
+      <div *ngIf="item.state=='miss' " class="square inactive-shot" ></div>
+      <div *ngIf="item.state=='successfull'" class="square hundido" ></div>
     </div>
   </div>
 </div>

@@ -4,6 +4,8 @@ export class Cell {
     col?:number;
     row?:number;
     hasAship:boolean;
+    nameShip?:string;
+    widthShip?:number;
     
     constructor(){
       this.state="inactive";
@@ -13,6 +15,15 @@ export class Cell {
     setPosition(col: number,row: number){
         this.col= col;
         this.row =row;
+    }
+    setNameShip(nameShip:string){
+        this.nameShip=nameShip;
+    }
+    getNameShip(){
+        return this.nameShip;
+    }
+    getWidthShip(){
+        return this.widthShip;
     }
 
     getHasAship(){
