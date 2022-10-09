@@ -1,40 +1,192 @@
-<div *ngIf="this.playerTurn==1">
-  <div class="title">Jugador 1</div>
-  <div class="flex" *ngFor="let grid of this.grid2.getList(); let i=index">
-    <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="item.state=='inactive'" class=" square inactive" (click)="selectInactive(i,j)"></div>
-      <div *ngIf="item.state=='miss'" class="square miss-shot" ></div>
-      <div *ngIf="item.state=='successfull'" class="square successful-shot" ></div>
-      <div *ngIf="item.state=='hundido'" class="square hundido" ></div>
+<div *ngIf="!this.startgame" class="flex heigth-100 width-100">
+    <img class="background" src="../assets/battleshipMenuScreen.png" />
+  
+  <div class="position-center">
+    <div class="mainbutton" > 
+      <button (click)="startGame()">Start Game</button>
     </div>
-  </div>
-  <label>***********</label>
-  <div class="flex" *ngFor="let grid of this.grid1.getList(); let i=index">
-    <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="item.state=='inactive' && !item.hasAship" class=" square inactive"></div>
-      <div *ngIf="item.state=='inactive' && item.hasAship" class=" square successful-shot"></div>
-      <div *ngIf="item.state=='miss' " class="square inactive-shot" ></div>
-      <div *ngIf="item.state=='successfull'" class="square hundido" ></div>
-    </div>
+    <details>
+      <summary>Rules of the game</summary>
+      <p>*Each player has a turn</p>
+      <p>*Win the game when all ships are sunk</p>
+      <p>*It is not considered a draw</p>
+    </details>
   </div>
 </div>
-<div *ngIf="this.playerTurn==2">
-  <div class="title">Jugador 2</div>
-  <div class="flex" *ngFor="let grid of this.grid1.getList(); let i=index">
-    <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="item.state=='inactive'" class=" square inactive" (click)="selectInactive(i,j)"></div>
-      <div *ngIf="item.state=='miss'" class="square miss-shot" ></div>
-      <div *ngIf="item.state=='successfull'" class="square successful-shot" ></div>
-      <div *ngIf="item.state=='hundido'" class="square hundido" ></div>
+
+<div *ngIf="this.startgame">
+  <div *ngIf="this.playerTurn == 1">
+    <div class="flex">
+      <div class="width-50">
+        <h1 class="information">Jugador 1</h1>
+        <h4 class="information">
+          Remaining ships:{{ this.grid1.numbersOfShips }}
+        </h4>
+        <div class="flex">
+          <div class="square miss-shot"></div>
+          <h4 class="information">blue = shot missed</h4>
+        </div>
+        <div class="flex">
+          <div class="square successful-shot"></div>
+          <h4 class="information">orange = successful shot</h4>
+        </div>
+        <div class="flex">
+          <div class="square hundido"></div>
+          <h4 class="information">red = sunken ship</h4>
+        </div>
+      </div>
+      <div class="width-50">
+        <h4 class="information">Ships size:</h4>
+        <h4 class="information">aircraft carrier = 5 cells</h4>
+        <h4 class="information">battleship = 4 cells</h4>
+        <h4 class="information">cruise = 3 cells</h4>
+        <h4 class="information">submarine = 3 cells</h4>
+        <h4 class="information">destructor = 2 cells</h4>
+      </div>
+    </div>
+
+    <div class="grid01">
+      <div class="flex">
+        <div *ngFor="let label of this.labelsHorizontal; let i = index">
+          <div class="square">{{ label }}</div>
+        </div>
+      </div>
+
+      <div
+        class="flex"
+        *ngFor="let grid of this.grid2.getList(); let i = index"
+      >
+        <div class="square">{{ this.labelsVertical[i] }}</div>
+        <div *ngFor="let item of grid; let j = index">
+          <div
+            *ngIf="item.state == 'inactive'"
+            class="square inactive"
+            (click)="selectInactive(i, j)"
+          ></div>
+          <div *ngIf="item.state == 'miss'" class="square miss-shot"></div>
+          <div
+            *ngIf="item.state == 'successfull'"
+            class="square successful-shot"
+          ></div>
+          <div *ngIf="item.state == 'hundido'" class="square hundido"></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid02">
+      <div class="flex">
+        <div *ngFor="let label of this.labelsHorizontal; let i = index">
+          <div class="square">{{ label }}</div>
+        </div>
+      </div>
+      <div
+        class="flex"
+        *ngFor="let grid of this.grid1.getList(); let i = index"
+      >
+        <div class="square">{{ this.labelsVertical[i] }}</div>
+        <div *ngFor="let item of grid; let j = index">
+          <div
+            *ngIf="item.state == 'inactive' && !item.hasAship"
+            class="square inactive"
+          ></div>
+          <div
+            *ngIf="item.state == 'inactive' && item.hasAship"
+            class="square ship"
+          ></div>
+          <div *ngIf="item.state == 'miss'" class="square miss-shot"></div>
+          <div
+            *ngIf="item.state == 'successfull'"
+            class="square successful-shot"
+          ></div>
+          <div *ngIf="item.state == 'hundido'" class="square hundido"></div>
+        </div>
+      </div>
     </div>
   </div>
-  <label>***********</label>
-  <div class="flex" *ngFor="let grid of this.grid2.getList(); let i=index">
-    <div *ngFor="let item of grid;let j=index" >
-      <div *ngIf="item.state=='inactive' && !item.hasAship" class=" square inactive"></div>
-      <div *ngIf="item.state=='inactive' && item.hasAship" class=" square successful-shot"></div>
-      <div *ngIf="item.state=='miss' " class="square inactive-shot" ></div>
-      <div *ngIf="item.state=='successfull'" class="square hundido" ></div>
+  <div *ngIf="this.playerTurn == 2">
+    <div>
+      <div class="flex">
+        <div class="width-50">
+          <h1 class="information">Jugador 2</h1>
+          <h4 class="information">
+          Remaining ships:{{ this.grid2.numbersOfShips }}
+          </h4>
+          <div class="flex">
+            <div class="square miss-shot"></div>
+            <h4 class="information">blue = shot missed</h4>
+          </div>
+          <div class="flex">
+            <div class="square successful-shot"></div>
+            <h4 class="information">orange = successful shot</h4>
+          </div>
+          <div class="flex">
+            <div class="square hundido"></div>
+            <h4 class="information">red = sunken ship</h4>
+          </div>
+        </div>
+        <div class="width-50">
+          <h4 class="information">Ships size:</h4>
+          <h4 class="information">aircraft carrier = 5 cells</h4>
+          <h4 class="information">battleship = 4 cells</h4>
+          <h4 class="information">cruise = 3 cells</h4>
+          <h4 class="information">submarine = 3 cells</h4>
+          <h4 class="information">destructor = 2 cells</h4>
+        </div>
+      </div>
+    </div>
+    <div class="grid01">
+      <div class="flex">
+        <div *ngFor="let label of this.labelsHorizontal; let i = index">
+          <div class="square">{{ label }}</div>
+        </div>
+      </div>
+      <div
+        class="flex"
+        *ngFor="let grid of this.grid1.getList(); let i = index"
+      >
+        <div class="square">{{ this.labelsVertical[i] }}</div>
+        <div *ngFor="let item of grid; let j = index">
+          <div
+            *ngIf="item.state == 'inactive'"
+            class="square inactive"
+            (click)="selectInactive(i, j)"
+          ></div>
+          <div *ngIf="item.state == 'miss'" class="square miss-shot"></div>
+          <div
+            *ngIf="item.state == 'successfull'"
+            class="square successful-shot"
+          ></div>
+          <div *ngIf="item.state == 'hundido'" class="square hundido"></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid02">
+      <div class="flex">
+        <div *ngFor="let label of this.labelsHorizontal; let i = index">
+          <div class="square">{{ label }}</div>
+        </div>
+      </div>
+      <div
+        class="flex"
+        *ngFor="let grid of this.grid2.getList(); let i = index"
+      >
+        <div class="square">{{ this.labelsVertical[i] }}</div>
+        <div *ngFor="let item of grid; let j = index">
+          <div
+            *ngIf="item.state == 'inactive' && !item.hasAship"
+            class="square inactive"
+          ></div>
+          <div
+            *ngIf="item.state == 'inactive' && item.hasAship"
+            class="square ship"
+          ></div>
+          <div *ngIf="item.state == 'miss'" class="square miss-shot"></div>
+          <div
+            *ngIf="item.state == 'successfull'"
+            class="square successful-shot"
+          ></div>
+          <div *ngIf="item.state == 'hundido'" class="square hundido"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

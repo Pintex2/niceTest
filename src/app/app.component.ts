@@ -8,7 +8,10 @@ import { Ship } from './models/ship';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  labelsHorizontal = ['',1,2,3,4,5,6,7,8,9,10];
+  labelsVertical = ['A','B','C','D','E','F','G','H','I','J'];
   playerTurn: number = 1;
+  startgame:boolean=false;
   ships: Ship[] = [
     //del mas grande al mas chico
     new Ship('portaviones'),
@@ -31,22 +34,24 @@ export class AppComponent {
     if (this.playerTurn == 2) {
       this.grid1.shot(row, col);
       if (this.grid1.list[row][col].hasAship) {
-        this.grid1.verificarBarcoHundido(row, col);
+        this.grid1.verifySunkenShip(row, col);
       }
-      if (this.grid1.numbersOfShips == 0) {
-        alert('jugador 1 ganaste');
-        //windows.reload();
+      if (this.grid1.numbersOfShips == 0 ) {
+          alert('jugador 1 ganaste');
+          window.location.reload();
       } else {
+        alert("turno del siguiente jugador")
         this.changeTurn();
       }
     }else{
       this.grid2.shot(row, col);
       if (this.grid2.list[row][col].hasAship) {
-        this.grid2.verificarBarcoHundido(row, col);
+        this.grid2.verifySunkenShip(row, col);
       }
       if (this.grid2.numbersOfShips == 0) {
         alert('jugador 2 ganaste');
       } else {
+        alert("turno del siguiente jugador")
         this.changeTurn();
       }
     }
@@ -61,5 +66,6 @@ export class AppComponent {
   }
   startGame() {
     this.showGrid = true;
+    this.startgame=true;
   }
 }

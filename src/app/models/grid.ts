@@ -94,27 +94,26 @@ export class Grid {
     return true;
   }
 
-  verificarBarcoHundido(i: number, j: number) {
+  verifySunkenShip(i: number, j: number) {
     let width = this.getWidthByNameShip(this.list[i][j].getNameShip());
     let init = this.getInitPositionOfShip(this.list[i][j].getNameShip());
-    let shipMuerto = 0;
+    let shipsinked = 0;
     for (let x = init; x < width + init; x++) {
       if (
         this.list[this.listRowsCoordenatesShips[x]][
           this.listColsCoordenatesShips[x]
         ].state == 'inactive'
       ) {
-        shipMuerto++;
+        shipsinked++;
       }
     }
-    if (shipMuerto == 0) {
+    if (shipsinked == 0) {
       for (let x = init; x < width + init; x++) {
         this.list[this.listRowsCoordenatesShips[x]][
           this.listColsCoordenatesShips[x]
         ].state = 'hundido';
       }
       this.numbersOfShips=this.numbersOfShips-1;
-      // alert(this.numbersOfShips);
     }
   }
   getInitPositionOfShip(nameShip: string) {
