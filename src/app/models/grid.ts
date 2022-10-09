@@ -142,11 +142,4 @@ export class Grid {
       return 2;
     }
   }
-  //   showTable() {
-  //     console.log(this.list);
-  //   }
-  //   selectSquare(i: any, j: any) {
-  //     console.log(i, j);
-  //     this.list[i][j] = 'A';
-  //   }
 }
